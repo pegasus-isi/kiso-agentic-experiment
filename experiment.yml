@@ -1,0 +1,70 @@
+name: first-agentic-experiment
+
+software:
+  ollama:
+    - labels:
+        - ollama
+      models:
+        - gpt-oss:20b
+
+sites:
+  - kind: vagrant
+    backend: virtualbox
+    box: bento/rockylinux-9
+    user: vagrant
+    config_extra: 'config.vm.synced_folder ".", "/vagrant", disabled: true'
+    resources:
+      machines:
+        - labels:
+            - ollama
+            - agent
+          backend: virtualbox
+          box: bento/rockylinux-9
+          user: vagrant
+          config_extra_vm: 'my.vm.synced_folder ".", "/vagrant", disabled: true'
+          flavour_desc:
+            core: 4
+            mem: 16384
+          number: 1
+      networks:
+        - labels:
+            - r1
+          cidr: "172.16.42.0/16"
+
+  # - kind: fabric
+  #   rc_file: secrets/fabric_rc
+  #   walltime: "02:00:00"
+  #   site: UCSD
+  #   image: default_rocky_9
+  #   resources:
+  #     machines:
+  #       - labels:
+  #           - collama
+  #           - agent
+  #         flavour: big
+  #         number: 1
+  #     # networks:
+  #     #   - sharednet1
+
+experiments:
+  - kind: shell
+    name: agentic-experiment
+    description: agentic-experiment
+    scripts:
+      - labels:
+          - agent
+        script: |
+          #!/bin/bash
+          sudo dnf -y install python3.13 python3.13-pip python3.13-setuptools
+          sudo pip3.13 install pydantic-ai
+      - labels:
+          - agent
+        script: |
+          #!/bin/bash
+          echo "Running agent"
+          python3.13 bin/agent.py > agent-output.txt
+    outputs:
+      - labels:
+          - agent
+        src: agent-output.txt
+        dst: ./
