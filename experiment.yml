@@ -39,7 +39,7 @@ sites:
   #   resources:
   #     machines:
   #       - labels:
-  #           - collama
+  #           - ollama
   #           - agent
   #         flavour: big
   #         number: 1
