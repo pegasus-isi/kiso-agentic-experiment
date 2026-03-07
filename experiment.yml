@@ -43,8 +43,14 @@ sites:
   #           - agent
   #         flavour: big
   #         number: 1
-  #     # networks:
-  #     #   - sharednet1
+  #     networks:
+  #       - labels:
+  #           - condorpool-network
+  #         kind: FABNetv4
+  #         site: UCSD
+  #         nic:
+  #           kind: SharedNIC
+  #           model: ConnectX-6
 
 experiments:
   - kind: shell
