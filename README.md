@@ -1,11 +1,13 @@
-# Getting Started
+# Pydantic Agent Experiment
+
+The experiment is a proof-of-concept demonstrating how to run an AI agent workload on provisioned infrastructure using Kiso. The experiment provisions a virtual machine (via Vagrant/VirtualBox or optionally FABRIC testbed), installs Ollama to serve a local open-source LLM, and then runs a small Python agent using Pydantic that queries the model for structured output. The agent itself is intentionally minimal — it asks where the 2012 Olympics were held and parses the response into a typed CityLocation object — serving as a template for running more complex agentic workloads on reproducible, cloud-provisioned infrastructure.
 
 ## Prerequisites
 
 ```sh
 pip install kiso
 # Install the resource provider specific dependencies you want to use
-pip install kiso[vagrant]
+pip install kiso[vagrant,fabric]
 ```
 
 ## Running the experiment
@@ -24,16 +26,14 @@ kiso run --output ./output
 # Destroy the provisioned resources
 kiso down --output ./output
 
-# Pegasus workflow submit directories will be placed in the output directory at the end of the experiment. The submit directories will also have a statistics directory with the pegasus-statistics output.
 # Outputs defined in the experiment configuration will be placed to the destination specified in the experiment configuration.
 ```
 
 # References
 
-- [Pegasus Workflow Management System](https://pegasus.isi.edu)
 - [EnOSlib](https://discovery.gitlabpages.inria.fr/enoslib/)
-- [Chameleon Cloud](https://www.chameleoncloud.org)
 - [FABRIC](https://portal.fabric-testbed.net)
+- [Vagrant](https://developer.hashicorp.com/vagrant)
 
 # Acknowledgements
 
