@@ -4,7 +4,7 @@
 
 ## What This Is
 
-This is a proof-of-concept that provisions a VM (via Vagrant/VirtualBox or FABRIC testbed), installs Ollama to serve a local open-source LLM, and runs a minimal Python agent using Pydantic AI. The agent asks where the 2012 Olympics were held and parses the response into a typed `CityLocation` object.
+This is a proof-of-concept that provisions a VM (via FABRIC testbed or Vagrant/VirtualBox), installs Ollama to serve a local open-source LLM, and runs a minimal Python agent using Pydantic AI. The agent asks where the 2012 Olympics were held and parses the response into a typed `CityLocation` object.
 
 Use this as a starting template for running more complex agentic workloads on reproducible, cloud-provisioned infrastructure.
 
@@ -12,15 +12,15 @@ Use this as a starting template for running more complex agentic workloads on re
 
 **System requirements:**
 - Python 3.9+
-- Vagrant + VirtualBox (for local VM provisioning), **or** a [FABRIC testbed account](https://portal.fabric-testbed.net) (for remote provisioning)
+- a [FABRIC testbed account](https://portal.fabric-testbed.net) (for remote provisioning), **or** Vagrant + VirtualBox (for local VM provisioning)
 
 **Install Kiso:**
 
 ```sh
 # Install the provider-specific dependencies for your target environment
-pip install kiso[vagrant]   # for Vagrant/VirtualBox
 pip install kiso[fabric]    # for FABRIC testbed
-pip install kiso[vagrant,fabric]  # for both
+pip install kiso[vagrant]   # for Vagrant/VirtualBox
+pip install kiso[fabric,vagrant]  # for both
 ```
 
 ## Quick Start
@@ -55,9 +55,9 @@ Outputs defined in the experiment configuration are written to the path specifie
 ## Credentials
 
 > [!NOTE]
-> `secrets/fabric_rc` is required only if you enable the commented `fabric` site in [`experiment.yml`](experiment.yml). No files are required in `secrets/` when using the default local Vagrant/VirtualBox setup.
+> `secrets/fabric_rc` is required for the default `fabric` site in [`experiment.yml`](experiment.yml). No files are required in `secrets/` when using the local Vagrant/VirtualBox setup. To use Vagrant/VirtualBox comment out the `fabric` site and uncomment the `vagrant` site in [`experiment.yml`](experiment.yml).
 
-- If you plan to use the optional FABRIC backend, complete the account setup steps in the [FABRIC Quick Start Guide](https://learn.fabric-testbed.net/knowledge-base/quick-start-guide/) before running `kiso up`.
+- Complete the account setup steps in the [FABRIC Quick Start Guide](https://learn.fabric-testbed.net/knowledge-base/quick-start-guide/) before running `kiso up`.
 - Create a [FABRIC portal account](https://portal.fabric-testbed.net) and finish the enrollment flow.
 - Create a FABRIC project, or join an existing project, from the portal so your account can provision resources.
 - Generate SSH keys from the portal's `User Profile -> My SSH Keys` page as described in [Generating SSH Configuration and SSH Keys](https://learn.fabric-testbed.net/knowledge-base/generating-ssh-configuration-and-ssh-keys/). FABRIC expects both bastion and sliver SSH keys.
