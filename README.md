@@ -57,24 +57,22 @@ Outputs defined in the experiment configuration are written to the path specifie
 > [!NOTE]
 > `secrets/fabric_rc` is required for the default `fabric` site in [`experiment.yml`](experiment.yml). No files are required in `secrets/` when using the local Vagrant/VirtualBox setup. To use Vagrant/VirtualBox comment out the `fabric` site and uncomment the `vagrant` site in [`experiment.yml`](experiment.yml).
 
-- Complete the account setup steps in the [FABRIC Quick Start Guide](https://learn.fabric-testbed.net/knowledge-base/quick-start-guide/) before running `kiso up`.
 - Create a [FABRIC portal account](https://portal.fabric-testbed.net) and finish the enrollment flow.
-- Create a FABRIC project, or join an existing project, from the portal so your account can provision resources.
-- Generate SSH keys from the portal's `User Profile -> My SSH Keys` page as described in [Generating SSH Configuration and SSH Keys](https://learn.fabric-testbed.net/knowledge-base/generating-ssh-configuration-and-ssh-keys/). FABRIC expects both bastion and sliver SSH keys.
-- Download the generated SSH key files and store them locally, typically under `~/.ssh/`, with appropriate permissions.
-- Generate a FABRIC API token from `Experiments -> Manage Tokens -> Open FABRIC Credential Manager` as described in [Obtaining and using FABRIC API tokens](https://learn.fabric-testbed.net/knowledge-base/obtaining-and-using-fabric-api-tokens/). If you are running FABRIC tooling from your laptop or desktop, save the downloaded token where `FABRIC_TOKEN_LOCATION` points.
-- Create the `secrets/fabric_rc` file,
-```sh
-export FABRIC_BASTION_HOST=bastion.fabric-testbed.net
-export FABRIC_PROJECT_ID=<fabric-project-id>
-export FABRIC_BASTION_USERNAME=<fabric-bastion-username>
-export FABRIC_BASTION_KEY_LOCATION=<path-to-fabric-bastion-key>
-export FABRIC_SLICE_PRIVATE_KEY_FILE=<path-to-fabric-sliver-key>
-export FABRIC_SLICE_PUBLIC_KEY_FILE=<path-to-fabric-bastion-public-key>
-export FABRIC_LOG_LEVEL=INFO
-export FABRIC_LOG_FILE=/tmp/fablib/fablib.log
-export FABRIC_TOKEN_LOCATION=<path-to-fabric-token>
-```
+- [Have an active FABRIC project allocation](https://learn.fabric-testbed.net/knowledge-base/creating-or-joining-a-project/) — create a new project or join an existing one
+- [SSH keys generated and configured](https://learn.fabric-testbed.net/knowledge-base/generating-ssh-configuration-and-ssh-keys/) — required for Kiso to connect to provisioned nodes over SSH
+- [A FABRIC API token generated](https://learn.fabric-testbed.net/knowledge-base/obtaining-and-using-fabric-api-tokens/) — required for the RC file
+- Create a FABRIC RC file (used as `rc_file` in the config)
+   ```sh
+   export FABRIC_BASTION_HOST=bastion.fabric-testbed.net
+   export FABRIC_PROJECT_ID=<fabric-project-id>
+   export FABRIC_BASTION_USERNAME=<fabric-bastion-username>
+   export FABRIC_BASTION_KEY_LOCATION=<path-to-fabric-bastion-key>
+   export FABRIC_SLICE_PRIVATE_KEY_FILE=<path-to-fabric-sliver-key>
+   export FABRIC_SLICE_PUBLIC_KEY_FILE=<path-to-fabric-bastion-public-key>
+   export FABRIC_LOG_LEVEL=INFO
+   export FABRIC_LOG_FILE=/tmp/fablib/fablib.log
+   export FABRIC_TOKEN_LOCATION=<path-to-fabric-token>
+   ```
 
 ## References
 
