@@ -53,7 +53,7 @@ sites:
   #     networks:
   #       - labels:
   #           - r1
-  #         cidr: "172.16.42.0/16"
+  #         cidr: 172.16.42.0/16
 
 experiments:
   - kind: shell
