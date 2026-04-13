@@ -6,6 +6,8 @@ software:
         - ollama
       models:
         - gpt-oss:20b
+      environment:
+        OLLAMA_HOST: 0.0.0.0
 
 sites:
   - kind: fabric
@@ -13,7 +15,7 @@ sites:
     walltime: "02:00:00"
     site: UCSD
     image: default_rocky_9
-    name_prefix: 1-agent
+    name_prefix: 2-agentt
     resources:
       machines:
         - labels:
@@ -24,6 +26,12 @@ sites:
             mem: 16
             disk: 30
           number: 1
+        - labels:
+            - agent-2
+          flavour_desc:
+            core: 2
+            mem: 4
+          number: 1
       networks:
         - labels:
             - network
@@ -33,29 +41,6 @@ sites:
             kind: SharedNIC
             model: ConnectX-6
 
-  # - kind: vagrant
-  #   backend: virtualbox
-  #   box: bento/rockylinux-9
-  #   user: vagrant
-  #   config_extra: 'config.vm.synced_folder ".", "/vagrant", disabled: true'
-  #   resources:
-  #     machines:
-  #       - labels:
-  #           - ollama
-  #           - agent
-  #         backend: virtualbox
-  #         box: bento/rockylinux-9
-  #         user: vagrant
-  #         config_extra_vm: 'my.vm.synced_folder ".", "/vagrant", disabled: true'
-  #         flavour_desc:
-  #           core: 4
-  #           mem: 16384
-  #         number: 1
-  #     networks:
-  #       - labels:
-  #           - r1
-  #         cidr: 172.16.42.0/16
-
 experiments:
   - kind: shell
     name: agentic-experiment
@@ -63,6 +48,7 @@ experiments:
     scripts:
       - labels:
           - agent
+          - agent-2
         script: |
           #!/bin/bash
           sudo dnf -y install python3.13 python3.13-pip python3.13-setuptools
@@ -73,8 +59,18 @@ experiments:
           #!/bin/bash
           echo "Running agent"
           python3.13 bin/agent.py > agent-output.txt
+      - labels:
+          - agent-2
+        script: |
+          #!/bin/bash
+          echo "Running agent 2"
+          python3.13 bin/agent-2.py > agent-2-output.txt
     outputs:
       - labels:
           - agent
         src: agent-output.txt
+        dst: ./
+      - labels:
+          - agent-2
+        src: agent-2-output.txt
         dst: ./
