@@ -15,7 +15,7 @@ sites:
     walltime: "02:00:00"
     site: UCSD
     image: default_rocky_9
-    name_prefix: 2-agentt
+    name_prefix: 2-agent
     resources:
       machines:
         - labels:
