@@ -19,6 +19,6 @@ agent = Agent(ollama_model, output_type=PresidentList)
 
 result = agent.run_sync("List the first five presidents of the United States")
 print(result.output)
-# > city='London' country='United Kingdom'
+# > presidents=['George Washington', 'John Adams', 'Thomas Jefferson', 'James Madison', 'James Monroe']
 print(result.usage())
-# > RunUsage(input_tokens=57, output_tokens=8, requests=1)
+# > RunUsage(input_tokens=131, output_tokens=167, requests=1)
